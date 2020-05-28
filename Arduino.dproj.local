@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/03/25 23:57:56.000.636,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/03/25 23:59:26.000.004,D:\ProjetosDelphi\TG-Arduino\ConnectArduino.dfm=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2018/03/25 23:59:26.000.003,D:\ProjetosDelphi\TG-Arduino\ConnectArduino.pas=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018/03/25 23:59:31.000.813,D:\ProjetosDelphi\TG-Arduino\Project1.dproj=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2018/03/27 21:31:14.000.919,=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/03/27 21:39:47.000.902,D:\ProjetosDelphi\TG-Arduino\Connection.dfm=D:\ProjetosDelphi\TG-Arduino\Unit1.dfm</Transaction>
+    <Transaction>2018/03/27 21:39:47.000.902,D:\ProjetosDelphi\TG-Arduino\Connection.pas=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/03/28 20:12:19.000.076,=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/03/28 20:12:35.000.702,=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/03/28 20:12:48.000.237,D:\ProjetosDelphi\TG-Arduino\Unit1.dfm=D:\ProjetosDelphi\TG-Arduino\CadSensor.dfm</Transaction>
+    <Transaction>2018/03/28 20:12:48.000.237,D:\ProjetosDelphi\TG-Arduino\Unit1.pas=D:\ProjetosDelphi\TG-Arduino\CadSensor.pas</Transaction>
+    <Transaction>2018/03/29 15:30:57.000.567,=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/03/29 15:31:40.000.503,D:\ProjetosDelphi\TG-Arduino\ChartMenu.dfm=D:\ProjetosDelphi\TG-Arduino\Unit1.dfm</Transaction>
+    <Transaction>2018/03/29 15:31:40.000.503,D:\ProjetosDelphi\TG-Arduino\ChartMenu.pas=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/03/29 17:31:02.000.785,=D:\ProjetosDelphi\TG-Arduino\img\Logo.jpg</Transaction>
+    <Transaction>2018/03/29 17:41:59.000.670,D:\ProjetosDelphi\TG-Arduino\Arduino.dproj=D:\ProjetosDelphi\TG-Arduino\Project1.dproj</Transaction>
+    <Transaction>2018/04/07 10:14:07.000.808,=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/04/07 10:14:36.000.319,D:\ProjetosDelphi\TG-Arduino\CadValorKwh.pas=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/04/07 10:14:36.000.319,D:\ProjetosDelphi\TG-Arduino\CadValorKwh.dfm=D:\ProjetosDelphi\TG-Arduino\Unit1.dfm</Transaction>
+    <Transaction>2018/05/20 11:11:47.000.001,=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/05/20 11:12:10.000.540,D:\ProjetosDelphi\TG-Arduino\Unit1.pas=D:\ProjetosDelphi\TG-Arduino\EquipamentosSetorSensor.pas</Transaction>
+    <Transaction>2018/05/20 11:12:10.000.540,D:\ProjetosDelphi\TG-Arduino\Unit1.dfm=D:\ProjetosDelphi\TG-Arduino\EquipamentosSetorSensor.dfm</Transaction>
+    <Transaction>2018/05/20 17:31:03.000.039,=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+    <Transaction>2018/05/20 17:33:22.000.019,D:\ProjetosDelphi\TG-Arduino\CadTipoEquip.dfm=D:\ProjetosDelphi\TG-Arduino\Unit1.dfm</Transaction>
+    <Transaction>2018/05/20 17:33:22.000.019,D:\ProjetosDelphi\TG-Arduino\CadTipoEquip.pas=D:\ProjetosDelphi\TG-Arduino\Unit1.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="img"/>
+    <File Path="img\Logo.jpg"/>
+    <File Path="CadSensor.pas"/>
+    <File Path="CadSensor.dfm"/>
+    <File Path="ChartMenu.pas"/>
+    <File Path="ChartMenu.dfm"/>
+    <File Path="CadValorKwh.pas"/>
+    <File Path="CadValorKwh.dfm"/>
+    <File Path="ConnectArduino.pas"/>
+    <File Path="ConnectArduino.dfm"/>
+    <File Path="Connection.pas"/>
+    <File Path="Connection.dfm"/>
+    <File Path="EquipamentosSetorSensor.pas"/>
+    <File Path="EquipamentosSetorSensor.dfm"/>
+    <File Path="CadTipoEquip.pas"/>
+    <File Path="CadTipoEquip.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>

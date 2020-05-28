@@ -1,0 +1,62 @@
+object TipoEquip: TTipoEquip
+  Left = 0
+  Top = 0
+  BorderStyle = bsToolWindow
+  Caption = 'TIPOS DE EQUIPAMENTOS'
+  ClientHeight = 345
+  ClientWidth = 216
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 8
+    Top = 21
+    Width = 100
+    Height = 13
+    Caption = 'Tipo do equipamento'
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 112
+    Width = 216
+    Height = 233
+    Align = alBottom
+    DataSource = dstTipoEquip
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object DBEdit1: TDBEdit
+    Left = 8
+    Top = 40
+    Width = 193
+    Height = 21
+    DataField = 'idTipoEquipamento'
+    DataSource = dstTipoEquip
+    TabOrder = 1
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 8
+    Top = 67
+    Width = 190
+    Height = 18
+    DataSource = dstTipoEquip
+    VisibleButtons = [nbPrior, nbNext, nbInsert, nbEdit, nbPost]
+    TabOrder = 2
+  end
+  object dstTipoEquip: TDataSource
+    DataSet = DT_connection.qryTipoEquip
+    Left = 104
+    Top = 144
+  end
+end

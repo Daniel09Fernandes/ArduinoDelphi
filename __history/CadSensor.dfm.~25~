@@ -1,0 +1,94 @@
+﻿object CSensor: TCSensor
+  Left = 0
+  Top = 0
+  Caption = 'CSensor'
+  ClientHeight = 339
+  ClientWidth = 290
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Setor: TLabel
+    Left = 16
+    Top = 59
+    Width = 26
+    Height = 13
+    Caption = 'Setor'
+  end
+  object Tensão: TLabel
+    Left = 176
+    Top = 16
+    Width = 35
+    Height = 13
+    Caption = 'Tens'#227'o'
+  end
+  object Sensor: TLabel
+    Left = 16
+    Top = 13
+    Width = 33
+    Height = 13
+    Caption = 'Sensor'
+  end
+  object DBGrid1: TDBGrid
+    Left = 8
+    Top = 144
+    Width = 274
+    Height = 169
+    DataSource = DataSourceSensor
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object CBRede: TComboBox
+    Left = 176
+    Top = 32
+    Width = 97
+    Height = 21
+    Hint = 'Selecione o valor para o calculo'
+    TabOrder = 1
+    Text = 'Selecione'
+    Items.Strings = (
+      '110'
+      '220')
+  end
+  object EdSetor: TEdit
+    Left = 16
+    Top = 32
+    Width = 121
+    Height = 21
+    Hint = 'Nome do setor em que est'#225' o sensor'
+    TabOrder = 2
+  end
+  object EdSensor: TEdit
+    Left = 16
+    Top = 78
+    Width = 121
+    Height = 21
+    Hint = 'Nome do Sensor'
+    TabOrder = 3
+  end
+  object Gravar: TBitBtn
+    Left = 207
+    Top = 161
+    Width = 75
+    Height = 25
+    Caption = 'Gravar'
+    TabOrder = 4
+    OnClick = GravarClick
+  end
+  object DataSourceSensor: TDataSource
+    DataSet = DT_connection.qrySensor
+    Left = 128
+    Top = 296
+  end
+end

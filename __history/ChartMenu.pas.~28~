@@ -1,0 +1,51 @@
+unit ChartMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Connection, VclTee.TeeGDIPlus,
+  VclTee.Series, VclTee.TeEngine, Vcl.ExtCtrls, VclTee.TeeProcs, VclTee.Chart,
+  VclTee.DBChart;
+
+type
+  TChart = class(TForm)
+    DBChart1: TDBChart;
+    Panel1: TPanel;
+    Series2: TBarSeries;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Chart: TChart;
+
+implementation
+
+{$R *.dfm}
+
+procedure TChart.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+  Chart.Free;
+end;
+
+procedure TChart.FormCreate(Sender: TObject);
+begin
+  DT_connection.FDcon.Connected := true;
+
+  DT_connection.qryGasto.Close;
+  DT_connection.qryGasto.SQL.Clear;
+  DT_connection.qryGasto.SQL.Add
+    ('select  s.rede,c.MediaCo, s.SetorSensor  avg(s.Rede*c.MediaCo) AS WATTS  from Sensor s,'
+    + ' MediaColeta c, Coleta cl');
+  DT_connection.qryGasto.Open;
+
+end;
+
+end.

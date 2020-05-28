@@ -1,0 +1,4 @@
+select s.rede,c.cvalor, AVG(s.rede * c.Cvalor) as Gasto ,s.SetorSensor from Sensor s 
+join 
+Coleta c 
+on ColetaID=SensorID

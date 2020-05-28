@@ -1,0 +1,17 @@
+program Project1;
+
+uses
+  Vcl.Forms,
+  ConnectArduino in 'ConnectArduino.pas' {TcpControl},
+  Vcl.Themes,
+  Vcl.Styles;
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Onyx Blue');
+  Application.CreateForm(TcpControl, cpControl);
+  Application.Run;
+end.

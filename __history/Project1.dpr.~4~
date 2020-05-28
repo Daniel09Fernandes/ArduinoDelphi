@@ -1,0 +1,19 @@
+program Project1;
+
+uses
+  Vcl.Forms,
+  ConnectArduino in 'ConnectArduino.pas' {TcpControl},
+  Vcl.Themes,
+  Vcl.Styles,
+  Connection in 'Connection.pas' {DT_connection: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Onyx Blue');
+  Application.CreateForm(TcpControl, cpControl);
+  Application.CreateForm(TDT_connection, DT_connection);
+  Application.Run;
+end.

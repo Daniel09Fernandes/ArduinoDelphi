@@ -1,0 +1,509 @@
+unit ConnectArduino;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CPort, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, Connection, CadSensor, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  ChartMenu, Vcl.Mask, CadValorKwh;
+
+type
+  TcpControl = class(TForm)
+    ComPort1: TComPort;
+    btnOpenCom: TBitBtn;
+    btnOpenConnect: TBitBtn;
+    btnComunicar: TBitBtn;
+    btnCLose: TBitBtn;
+    pHeader: TPanel;
+    Memo: TMemo;
+    Sensores: TBitBtn;
+    btnGraficos: TSpeedButton;
+    RBPorColeta: TRadioButton;
+    RBDataHora: TRadioButton;
+    GBRadios: TGroupBox;
+    GBDataHora: TGroupBox;
+    edtHoraInicio: TMaskEdit;
+    edtHoraFim: TMaskEdit;
+    Label3: TLabel;
+    Label4: TLabel;
+    edtDataInicio: TMaskEdit;
+    edtDataFim: TMaskEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    TimerAgendado: TTimer;
+    GBTime: TGroupBox;
+    Label2: TLabel;
+    EdtColetas: TMaskEdit;
+    ComPort2: TComPort;
+    btnCadValorkwh: TButton;
+    btn_VerDados: TBitBtn;
+    procedure btnOpenComClick(Sender: TObject);
+    procedure btnOpenConnectClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCLoseClick(Sender: TObject);
+    procedure btnComunicarClick(Sender: TObject);
+    procedure SensoresClick(Sender: TObject);
+    procedure btnGraficosClick(Sender: TObject);
+    procedure RBPorColetaClick(Sender: TObject);
+    procedure EdtColetasKeyPress(Sender: TObject; var Key: Char);
+    procedure EdtSegundosKeyPress(Sender: TObject; var Key: Char);
+    procedure RBDataHoraClick(Sender: TObject);
+    procedure TimerAgendadoTimer(Sender: TObject);
+    procedure btnCadValorkwhClick(Sender: TObject);
+    procedure btn_VerDadosClick(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  cpControl: TcpControl;
+  RxCount1: Integer;
+  RxCount2: Integer;
+  RxComPort1: String;
+  RxComPort2: String;
+  Estatus: Integer;
+  Sensor_SensorID: Integer;
+
+implementation
+
+{$R *.dfm}
+
+procedure TcpControl.btnCadValorkwhClick(Sender: TObject);
+begin
+   ValorKWH := TValorKWH.Create(Application);
+   ValorKWH.ShowModal;
+end;
+
+
+procedure TcpControl.btnCLoseClick(Sender: TObject);
+begin
+
+  try
+    ComPort1.Close;
+    ComPort2.Close;
+    if not ComPort1.Connected or ComPort2.Connected then
+    begin
+      Memo.Text := Memo.Text + 'Conexão com o Arduino finalizada!!!';
+      btnOpenCom.Visible := true;
+      btnOpenConnect.Visible := true;
+      btnComunicar.Visible := false;
+      GBTime.Visible := false;
+      btnCLose.Visible := false;
+      btnGraficos.Visible := false;
+      btnOpenConnect.Visible := false;
+      RBPorColeta.Checked := false;
+      RBDataHora.Checked := false;
+      GBRadios.Visible := false;
+      GBTime.Visible := false;
+      TimerAgendado.Enabled := false;
+      GBDataHora.Visible := false;
+      GBTime.Visible := false;
+      btn_VerDados.Visible := false;
+    end;
+  Except
+    on E: Exception do
+      Memo.Text := Memo.Text + 'Erro, Detalhes: ' + E.Message;
+  end;
+end;
+
+procedure TcpControl.btnComunicarClick(Sender: TObject);
+var
+  Coletas: Integer;
+  Data: String;
+  hora: String;
+  DataFim, HoraFim: String;
+begin
+
+  if RBPorColeta.Checked then
+  begin
+    if EdtColetas.Text = '' then
+    begin
+      showMessage('Você não definiu o numero de coletas');
+    end
+    else
+    begin
+      Coletas := StrToInt(EdtColetas.Text);
+      Estatus := 1;
+      Data := DateTostr(date);
+      hora := Timetostr(time);
+      Memo.Lines.Add('Cominucando, aguarde...');
+      DT_connection.FDcon.Connected := true;
+      while Estatus = 1 do
+      begin
+        // gravar
+        // pegar o conteudo da serial
+        if ComPort2.port <> 'COM22' then
+        begin
+          ComPort2.ReadStr(RxComPort2, RxCount2);
+
+        end
+         else
+         begin end;
+        if ComPort1.port <> 'COM22' then
+        begin
+          ComPort1.ReadStr(RxComPort1, RxCount1);
+        end
+         else
+         begin end;
+        // medir os bits
+        if ComPort1.port <> 'COM22' then
+        begin
+          RxCount1 := ComPort1.InputCount;
+        end else
+        begin end;
+        if ComPort2.port <> 'COM22' then
+        begin
+          RxCount2 := ComPort2.InputCount;
+        end else
+        begin end;
+
+           if ComPort1.port <> 'COM22' then
+           begin
+           if not RxComPort1.IsEmpty then
+        begin
+          Sensor_SensorID := 1;
+          Memo.Lines.Add( RxComPort1 );
+
+          DT_connection.qryColeta.Close;
+          DT_connection.qryColeta.SQL.Clear;
+          DT_connection.qryColeta.SQL.Add
+            ('Insert into Coleta (Sensor_SensorID, CValor,data,hora) values(' +
+            IntToStr(Sensor_SensorID) + ',' + QuotedStr(RxComPort1) + ',' +
+            QuotedStr(Data) + ',' + QuotedStr(hora) + ')');
+          DT_connection.qryColeta.ExecSQL;
+          try
+            DT_connection.qryColeta.Close;
+            DT_connection.qryColeta.SQL.Clear;
+            DT_connection.qryColeta.SQL.Add('Select * from Coleta');
+            DT_connection.qryColeta.Open;
+            DT_connection.qryColeta.Close;
+            DT_connection.qryColeta.SQL.Clear;
+          finally
+            DT_connection.qryColeta.Active := false;
+            Coletas := Coletas - 1;
+            if Coletas = 0 then
+            begin
+              Estatus := 2;
+              Memo.Lines.Add('ColetaFinalizada');
+
+
+            end;
+          end;
+        end;
+        if ComPort2.port <> 'COM22' then
+        begin
+          if not RxComPort2.IsEmpty then
+          begin
+            Sensor_SensorID := 2;
+            Memo.Lines.Add(RxComPort2);
+
+            DT_connection.qryColeta.Close;
+            DT_connection.qryColeta.SQL.Clear;
+            DT_connection.qryColeta.SQL.Add
+              ('Insert into Coleta (Sensor_SensorID, CValor,data,hora) values('
+              + IntToStr(Sensor_SensorID) + ',' + QuotedStr(RxComPort2) + ',' +
+              QuotedStr(Data) + ',' + QuotedStr(hora) + ')');
+            DT_connection.qryColeta.ExecSQL;
+            try
+              DT_connection.qryColeta.Close;
+              DT_connection.qryColeta.SQL.Clear;
+              DT_connection.qryColeta.SQL.Add('Select * from Coleta');
+              DT_connection.qryColeta.Open;
+              DT_connection.qryColeta.Close;
+              DT_connection.qryColeta.SQL.Clear;
+            finally
+              DT_connection.qryColeta.Active := false;
+              Coletas := Coletas - 1;
+              if Coletas = 0 then
+              begin
+                Estatus := 2;
+                Memo.Lines.Add('ColetaFinalizada');
+
+
+              end;
+            end;
+          end;
+        end;
+
+        end;
+
+      end;
+
+    end;
+
+  end
+
+  else
+  begin
+    if RBDataHora.Checked then
+    begin
+      Data := DateTostr(date);
+      hora := Timetostr(time);
+      if edtHoraInicio.Text = '  :  :  ' then
+      begin
+        showMessage('Campo hora inicío vazio, insira uma valor valido');
+      end;
+      if edtHoraFim.Text = '  :  :  ' then
+      begin
+        TimerAgendado.Enabled := false;
+        showMessage('Campo hora fim vazio, insira uma valor valido');
+
+      end;
+      if edtDataInicio.Text = '  /  /    ' then
+      begin
+        TimerAgendado.Enabled := false;
+        showMessage('Campo data início vazio, insira uma valor valido');
+
+      end;
+      if edtDataFim.Text = '  /  /    ' then
+      begin
+        TimerAgendado.Enabled := false;
+        showMessage('Campo data fim vazio, insira uma valor valido');
+      end;
+
+      while (edtDataInicio.Text = Data) and (edtHoraInicio.Text <> hora) do
+      begin
+        Data := DateTostr(date);
+        hora := Timetostr(time);
+        if (edtDataInicio.Text = Data) and (edtHoraInicio.Text = hora) then
+        begin
+          Memo.Lines.Add('Agendamento realizado para ' + edtDataInicio.Text +
+            'As: ' + edtHoraInicio.Text + 'h ' + ' e finalizara no dia: ' +
+            edtDataFim.Text + ' As: ' + edtHoraFim.Text + 'h ');
+          TimerAgendado.Enabled := true;
+
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TcpControl.btnOpenComClick(Sender: TObject);
+begin
+
+  ComPort1.ShowSetupDialog;
+  btnOpenCom.Enabled;
+  if Application.MessageBox('Deseja incluir mais um sensor?', 'Sensores',
+    mb_YesNo + mb_iconquestion) = id_yes then
+  begin
+
+    ComPort2.ShowSetupDialog;
+  end
+  else
+  begin
+    ComPort2.Connected := false;
+  end;
+
+  if btnOpenCom.Enabled = true then
+  begin
+    btnOpenConnect.Visible := true;
+    btn_VerDados.Visible := true;
+  end;
+end;
+
+procedure TcpControl.btnOpenConnectClick(Sender: TObject);
+begin
+  try
+    // Abre a conexão serial
+    if ComPort1.port = 'COM22' then
+    begin
+
+    end
+    else
+    begin
+      ComPort1.Open;
+    end;
+    if ComPort2.port = 'COM22' then
+    begin
+
+    end
+    else
+    begin
+      ComPort2.Open;
+    end;
+    if ComPort1.Connected or ComPort2.Connected then
+    begin
+      Memo.Lines.Add('Conectado com sucesso');
+      btnOpenConnect.Visible := false;
+      btnOpenCom.Visible := false;
+      btnComunicar.Visible := true;
+      btnCLose.Visible := true;
+      btnGraficos.Visible := true;
+      GBRadios.Visible := true;
+    end
+    else
+      Memo.Text := Memo.Text + 'Conexão falhou';
+
+  Except
+    on E: Exception do
+    begin
+      Memo.Text := Memo.Text +
+        'Erro ao tentar conectar com a porta COM, Detalhes do erro:  ' +
+        E.Message;
+    end;
+
+  end;
+end;
+
+procedure TcpControl.btn_VerDadosClick(Sender: TObject);
+begin
+if (ComPort1.Port = 'COM22') or (ComPort2.Port ='COM22')  then
+begin
+     Memo.Lines.Add('Porta: Não conectado! '+'  Dados: Sem dados ');
+end;
+Memo.Lines.Add('Porta:  '+ComPort1.Port +'  Dados:  '+RxComPort1);
+Memo.Lines.Add('Porta:  '+ComPort2.Port +'  Dados:  '+RxComPort2);
+end;
+
+procedure TcpControl.EdtColetasKeyPress(Sender: TObject; var Key: Char);
+begin
+  If not(Key in ['0' .. '9', #08]) then
+    Key := #0;
+end;
+
+procedure TcpControl.EdtSegundosKeyPress(Sender: TObject; var Key: Char);
+begin
+  If not(Key in ['0' .. '9', #08]) then
+    Key := #0;
+end;
+
+procedure TcpControl.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  ComPort1.Close;
+  ComPort2.Close;
+
+end;
+
+procedure TcpControl.RBDataHoraClick(Sender: TObject);
+begin
+  if RBDataHora.Checked then
+  begin
+    GBTime.Visible := false;
+    GBDataHora.Visible := true;
+  end;
+end;
+
+procedure TcpControl.RBPorColetaClick(Sender: TObject);
+begin
+  if RBPorColeta.Checked then
+  begin
+    GBTime.Visible := true;
+    showMessage('Defina o numero de coletas');
+    GBDataHora.Visible := false;
+  end;
+end;
+
+procedure TcpControl.SensoresClick(Sender: TObject);
+Var
+  Sensor: TCSensor;
+begin
+  Sensor := TCSensor.Create(Application);
+  Sensor.ShowModal;
+end;
+
+procedure TcpControl.TimerAgendadoTimer(Sender: TObject);
+var
+  hora, Data: string;
+begin
+  Data := DateTostr(date);
+  hora := Timetostr(time);
+  if ComPort1.port <> 'COM22' then
+  begin
+    ComPort1.ReadStr(RxComPort1, RxCount1);
+  end
+   else
+    begin end;
+
+  if ComPort2.port <> 'COM22' then
+  begin
+    ComPort2.ReadStr(RxComPort2, RxCount2);
+  end else
+   begin end;
+  // medir os bits
+  if ComPort1.port <> 'COM22' then
+  begin
+    RxCount1 := ComPort1.InputCount;
+  end else
+  begin end;
+
+  if ComPort2.port <> 'COM22' then
+  begin
+    RxCount2 := ComPort2.InputCount;
+  end else
+  begin end;
+  if not RxComPort1.IsEmpty then
+  begin
+    Sensor_SensorID := 1;
+    Memo.Lines.Add(RxComPort1 + 'Setor1');
+
+    DT_connection.qryColeta.Close;
+    DT_connection.qryColeta.SQL.Clear;
+    DT_connection.qryColeta.SQL.Add
+      ('Insert into Coleta (Sensor_SensorID, CValor,data,hora) values(' +
+      IntToStr(Sensor_SensorID) + ',' + QuotedStr(RxComPort1) + ',' +
+      QuotedStr(Data) + ',' + QuotedStr(hora) + ')');
+    DT_connection.qryColeta.ExecSQL;
+    try
+      DT_connection.qryColeta.Close;
+      DT_connection.qryColeta.SQL.Clear;
+      DT_connection.qryColeta.SQL.Add('Select * from Coleta');
+      DT_connection.qryColeta.Open;
+      DT_connection.qryColeta.Close;
+      DT_connection.qryColeta.SQL.Clear;
+    finally
+      DT_connection.qryColeta.Active := false;
+    end;
+  end;
+
+  begin
+    if not RxComPort2.IsEmpty then
+    begin
+      Sensor_SensorID := 2;
+      Memo.Lines.Add(RxComPort2 + ' Setor2');
+
+      DT_connection.qryColeta.Close;
+      DT_connection.qryColeta.SQL.Clear;
+      DT_connection.qryColeta.SQL.Add
+        ('Insert into Coleta (Sensor_SensorID, CValor,data,hora) values(' +
+        IntToStr(Sensor_SensorID) + ',' + QuotedStr(RxComPort2) + ',' +
+        QuotedStr(Data) + ',' + QuotedStr(hora) + ')');
+      DT_connection.qryColeta.ExecSQL;
+      try
+        DT_connection.qryColeta.Close;
+        DT_connection.qryColeta.SQL.Clear;
+        DT_connection.qryColeta.SQL.Add('Select * from Coleta');
+        DT_connection.qryColeta.Open;
+        DT_connection.qryColeta.Close;
+        DT_connection.qryColeta.SQL.Clear;
+      finally
+        DT_connection.qryColeta.Active := false;
+      end;
+    end;
+  end;
+
+  if (edtDataFim.Text = Data) and  (edtHoraFim.Text = hora) then
+  begin
+    Memo.Lines.Add('Agendamento por data finalizado!');
+    TimerAgendado.Enabled := false;
+
+  end;
+
+end;
+
+procedure TcpControl.btnGraficosClick(Sender: TObject);
+Var
+  Chart: TChart;
+begin
+  Chart := TChart.Create(Application);
+  Chart.ShowModal;
+
+  DT_connection.FDcon.Connected := true;
+
+end;
+
+end.

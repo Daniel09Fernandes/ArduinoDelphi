@@ -1,0 +1,27 @@
+program Arduino;
+
+{$R *.dres}
+
+uses
+  Vcl.Forms,
+  ConnectArduino in 'ConnectArduino.pas' {TcpControl},
+  Vcl.Themes,
+  Vcl.Styles,
+  Connection in 'Connection.pas' {DT_connection: TDataModule},
+  CadSensor in 'CadSensor.pas' {CSensor},
+  ChartMenu in 'ChartMenu.pas' {Chart},
+  CadValorKwh in 'CadValorKwh.pas' {ValorKWH},
+  EquipamentosSetorSensor in 'EquipamentosSetorSensor.pas' {CadEquip},
+  CadTipoEquip in 'CadTipoEquip.pas' {TipoEquip};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+ // TStyleManager.TrySetStyle('Luna');
+  Application.CreateForm(TcpControl, cpControl);
+  Application.CreateForm(TDT_connection, DT_connection);
+  {Application.CreateForm(TcpControl, TcpControl); }
+  Application.Run;
+end.

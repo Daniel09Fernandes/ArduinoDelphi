@@ -1,0 +1,30 @@
+unit CadTipoEquip;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Connection, Data.DB, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.Mask, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TTipoEquip = class(TForm)
+    DBGrid1: TDBGrid;
+    DBEdit1: TDBEdit;
+    DBNavigator1: TDBNavigator;
+    dstTipoEquip: TDataSource;
+    Label1: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  TipoEquip: TTipoEquip;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,133 @@
+object Chart: TChart
+  Left = 0
+  Top = 0
+  Caption = 'Chart'
+  ClientHeight = 423
+  ClientWidth = 679
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object DBChart1: TDBChart
+    Left = 0
+    Top = 41
+    Width = 679
+    Height = 382
+    Title.Color = 4711962
+    Title.Text.Strings = (
+      'Consumo em Watts')
+    Title.VertMargin = 8
+    Panning.MouseWheel = pmwNone
+    View3DOptions.Zoom = 105
+    ZoomWheel = pmwNormal
+    Align = alClient
+    TabOrder = 0
+    AutoSize = True
+    ExplicitLeft = 8
+    ExplicitTop = 0
+    ExplicitHeight = 423
+    DefaultCanvas = 'TGDIPlusCanvas'
+    PrintMargins = (
+      15
+      19
+      15
+      19)
+    ColorPaletteIndex = 10
+    object Series3: TPieSeries
+      XValues.Order = loAscending
+      YValues.Name = 'Pie'
+      YValues.Order = loNone
+      Frame.InnerBrush.BackColor = clRed
+      Frame.InnerBrush.Gradient.EndColor = clGray
+      Frame.InnerBrush.Gradient.MidColor = clWhite
+      Frame.InnerBrush.Gradient.StartColor = 4210752
+      Frame.InnerBrush.Gradient.Visible = True
+      Frame.MiddleBrush.BackColor = clYellow
+      Frame.MiddleBrush.Gradient.EndColor = 8553090
+      Frame.MiddleBrush.Gradient.MidColor = clWhite
+      Frame.MiddleBrush.Gradient.StartColor = clGray
+      Frame.MiddleBrush.Gradient.Visible = True
+      Frame.OuterBrush.BackColor = clGreen
+      Frame.OuterBrush.Gradient.EndColor = 4210752
+      Frame.OuterBrush.Gradient.MidColor = clWhite
+      Frame.OuterBrush.Gradient.StartColor = clSilver
+      Frame.OuterBrush.Gradient.Visible = True
+      Frame.Width = 4
+      Active = False
+      OtherSlice.Legend.Visible = False
+    end
+    object Series2: THorizBarSeries
+      BarBrush.Color = 1183760
+      BarBrush.Style = bsFDiagonal
+      BarBrush.BackColor = clDefault
+      BarBrush.Image.Data = {
+        07544269746D617036040000424D360400000000000036000000280000001000
+        0000100000000100200000000000000400000000000000000000000000000000
+        0000AD948400AD9C8400AD9C8400AD947B00AD9C8400A5947B00AD948400B59C
+        8C00B59C8C00B59C8C00B59C8C00B5A58C00BDA59400BDA59400BDA59400BDA5
+        9400B59C8C00AD9C8400AD9C8400AD9C8400AD9C8400B5A58C00AD9C8400AD94
+        8C00B59C9400B59C8C00B5A58C00B59C8C00B5A58C00B5A58C00BDA59400BDA5
+        9400AD948400B5947B00AD9C8400AD9C8400B59C8C00BDA59400B59C8C00B59C
+        8C00B59C8C00B5A58C00B5A58C00BDA59400B59C8C00B5A58C00BDA59400BDA5
+        9400B59C8C00AD947B00AD9C8400B5A58C00B59C8C00AD948400AD948400B59C
+        8C00AD9C8400AD9C8400B59C8C00B59C9400BDA59400B59C8C00B5A58C00BDA5
+        9400B59C8C00AD9C8400B59C8C00B59C8C00B59C8C00AD9C8400B59C8C00BDA5
+        9400B59C8C00AD9C8400B59C8C00B59C8C00B59C8C00B5A58C00B5A58C00BDA5
+        9400B59C8C00B59C8C00B59C8C00B59C8C00AD948400AD9C8400AD948400BDA5
+        9400B59C8C00B59C8C00B59C8C00AD9C8400B59C8C00B59C8C00B5A58C00BDA5
+        8C00AD9C8400B5948C00B59C8C00B59C8C00AD9C8400B59C8C00B5948C00B59C
+        8C00AD9C8400AD9C8400B59C8C00AD9C8400AD9C8400B59C8C00BDA58400BDA5
+        8400AD948400AD948400AD948400B59C8C00B59C8C00AD948400AD948400AD9C
+        8400AD9C8400B59C8C00B59C8C00AD948400B59C8C00AD9C8400AD9C8400AD9C
+        8400AD9C8400AD9C8400AD9C8400B59C8C00AD948400B59C8C00B59C8C00B59C
+        8C00B59C8C00AD948400AD948400B59C8C00B59C8C00AD948400AD948400AD94
+        8400BDA58400BDA58400B59C8C00AD9C8400AD9C8400B59C8C00AD9C8400B59C
+        8C00AD948C00B5948C00B59C8C00AD9C8400B59C8C00B59C8C00B5948C00AD9C
+        8400BDA58C00B5A58C00B59C8C00B59C8C00AD9C8400B59C8C00B59C8C00B59C
+        8C00B59C8C00AD948400AD9C8400AD948400B59C8C00B59C8C00B59C8C00B59C
+        8C00BDA59400B5A58C00B5A58C00B59C8C00B59C8C00B59C8C00AD9C8400B59C
+        8C00B59C9400B59C8C00AD9C8400B59C8C00B59C8C00B59C8C00AD9C8400B59C
+        8C00BDA59400B5A58C00B59C8C00BDA59400B59C9400B59C8C00AD9C8400B59C
+        8C00B59C8C00AD948400AD948400B59C8C00B5A58C00AD9C8400AD947B00B59C
+        8C00BDA59400BDA59400B5A58C00B59C8C00BDA59400B5A58C00B5A58C00B59C
+        8C00B59C8C00B59C8C00BDA59400B59C8C00AD9C8400AD9C8400B5947B00AD94
+        8400BDA59400BDA59400B5A58C00B5A58C00B59C8C00B5A58C00B59C8C00AD94
+        8400B59C8C00AD9C8400B5A58C00AD9C8400AD9C8400AD9C8400AD9C8400B59C
+        8C00BDA59400BDA59400BDA59400BDA59400B5A58C00B59C8C00B59C8C00AD94
+        8400AD948400AD948400A5947B00AD9C8400AD947B00AD9C8400AD9C8400AD94
+        8400}
+      BarPen.Color = 390140
+      ColorEachPoint = True
+      Marks.Visible = False
+      Marks.Callout.Length = 8
+      DataSource = DT_connection.qryGasto
+      Title = 'Grafico,Consumo'
+      XLabelsSource = 'WATTS'
+      XValues.Name = 'Bar'
+      XValues.Order = loNone
+      XValues.ValueSource = 'MediaCo'
+      YValues.Name = 'Y'
+      YValues.Order = loAscending
+      YValues.ValueSource = 'WATTS'
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 679
+    Height = 41
+    Align = alTop
+    Caption = 'Grafico de consumo medio por setor'
+    TabOrder = 1
+    ExplicitLeft = 328
+    ExplicitWidth = 185
+  end
+end

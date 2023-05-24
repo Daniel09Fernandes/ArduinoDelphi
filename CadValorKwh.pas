@@ -50,46 +50,46 @@ implementation
 
 procedure TValorKWH.btnSalvarClick(Sender: TObject);
 begin
-if EditCidade.Text <> DT_connection.qryvalorKWHcity.FieldByName('Cidade').AsString then
-Begin
-DT_connection.qryvalorKWHcity.Close;
-DT_connection.qryvalorKWHcity.SQL.Clear;
-DT_connection.qryvalorKWHcity.SQL.Add('Insert into valorKWHcity (Cidade ,ValorKWH ,Obs )'
-+'Values('+QuotedStr(EditCidade.Text)+','+ QuotedStr(EditVKwh.Text)+','+ QuotedStr(EditOBS.Text)+')');
-DT_connection.qryvalorKWHcity.ExecSQL;
-DT_connection.qryvalorKWHcity.Close;
-DT_connection.qryvalorKWHcity.SQL.Clear;
-DT_connection.qryvalorKWHcity.SQL.Add('Select * from  valorKWHcity');
-DT_connection.qryvalorKWHcity.Open;
+  if EditCidade.Text <> DT_connection.qryvalorKWHcity.FieldByName('Cidade').AsString then
+  Begin
+    DT_connection.qryvalorKWHcity.Close;
+    DT_connection.qryvalorKWHcity.SQL.Clear;
+    DT_connection.qryvalorKWHcity.SQL.Add('Insert into valorKWHcity (Cidade ,ValorKWH ,Obs )'
+    +'Values('+QuotedStr(EditCidade.Text)+','+ QuotedStr(EditVKwh.Text)+','+ QuotedStr(EditOBS.Text)+')');
+    DT_connection.qryvalorKWHcity.ExecSQL;
+    DT_connection.qryvalorKWHcity.Close;
+    DT_connection.qryvalorKWHcity.SQL.Clear;
+    DT_connection.qryvalorKWHcity.SQL.Add('Select * from  valorKWHcity');
+    DT_connection.qryvalorKWHcity.Open;
 
-btnSalvar.Visible := false;
-End ELSE
-BEGIN
-   DT_connection.qryvalorKWHcity.Close;
-DT_connection.qryvalorKWHcity.SQL.Clear;
-DT_connection.qryvalorKWHcity.SQL.Add('update valorKWHcity set ValorKWH=' + QuotedStr(EditVKwh.Text)+','+'Obs='+QuotedStr(EditOBS.Text)+'Where Cidade='+QuotedStr(EditCidade.Text));
-DT_connection.qryvalorKWHcity.ExecSQL;
-DT_connection.qryvalorKWHcity.Close;
-DT_connection.qryvalorKWHcity.SQL.Clear;
-DT_connection.qryvalorKWHcity.SQL.Add('Select * from  valorKWHcity');
-DT_connection.qryvalorKWHcity.Open;
+    btnSalvar.Visible := false;
+  end else
+  begin
+    DT_connection.qryvalorKWHcity.Close;
+    DT_connection.qryvalorKWHcity.SQL.Clear;
+    DT_connection.qryvalorKWHcity.SQL.Add('update valorKWHcity set ValorKWH=' + QuotedStr(EditVKwh.Text)+','+'Obs='+QuotedStr(EditOBS.Text)+'Where Cidade='+QuotedStr(EditCidade.Text));
+    DT_connection.qryvalorKWHcity.ExecSQL;
+    DT_connection.qryvalorKWHcity.Close;
+    DT_connection.qryvalorKWHcity.SQL.Clear;
+    DT_connection.qryvalorKWHcity.SQL.Add('Select * from  valorKWHcity');
+    DT_connection.qryvalorKWHcity.Open;
 
-btnSalvar.Visible := false;
-END;
+    btnSalvar.Visible := false;
+  end;
 end;
 
 procedure TValorKWH.BtnEditarClick(Sender: TObject);
 begin
-btnSalvar.Visible := true;
+  btnSalvar.Visible := true;
 end;
 
 procedure TValorKWH.btnNewClick(Sender: TObject);
 begin
-EditCidade.Text := '';
-EditVKwh.Text := '';
-EditOBS.Text := '';
-
-btnSalvar.Visible := true;
+  EditCidade.Text := '';
+  EditVKwh.Text := '';
+  EditOBS.Text := '';
+  
+  btnSalvar.Visible := true;
 end;
 
 procedure TValorKWH.CBVPClick(Sender: TObject);
@@ -116,32 +116,31 @@ end;
 
 procedure TValorKWH.DBNavigator1Click(Sender: TObject; Button: TNavigateBtn);
 begin
-EditCidade.Text := DT_connection.qryvalorKWHcity.FieldByName('Cidade').AsString;
-EditVKwh.Text := DT_connection.qryvalorKWHcity.FieldByName('ValorKWH').AsString;
-EditOBS.Text := DT_connection.qryvalorKWHcity.FieldByName('Obs').AsString;
-btnSalvar.Visible := false;
+  EditCidade.Text := DT_connection.qryvalorKWHcity.FieldByName('Cidade').AsString;
+  EditVKwh.Text := DT_connection.qryvalorKWHcity.FieldByName('ValorKWH').AsString;
+  EditOBS.Text := DT_connection.qryvalorKWHcity.FieldByName('Obs').AsString;
+  btnSalvar.Visible := false;
 end;
 
 procedure TValorKWH.EditVKwhKeyPress(Sender: TObject; var Key: Char);
 begin
-If not( key in['0'..'9','.',#08] ) then
-  key:=#0;
+  If not( key in['0'..'9','.',#08] ) then
+    key:=#0;
 end;
 
 procedure TValorKWH.FormActivate(Sender: TObject);
 begin
-EditCidade.Text := DT_connection.qryvalorKWHcity.FieldByName('Cidade').AsString;
-EditVKwh.Text := DT_connection.qryvalorKWHcity.FieldByName('ValorKWH').AsString;
-EditOBS.Text := DT_connection.qryvalorKWHcity.FieldByName('Obs').AsString;
-btnSalvar.Visible := false;
+  EditCidade.Text := DT_connection.qryvalorKWHcity.FieldByName('Cidade').AsString;
+  EditVKwh.Text := DT_connection.qryvalorKWHcity.FieldByName('ValorKWH').AsString;
+  EditOBS.Text := DT_connection.qryvalorKWHcity.FieldByName('Obs').AsString;
+  btnSalvar.Visible := false;
 end;
 
 procedure TValorKWH.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  // Fecha a conex„o ao fechar o form
+  // Fecha a conex√£o ao fechar o form
   DT_connection.FDcon.Connected := false;
   DT_connection.qryvalorKWHcity.active := false;
-
 end;
 
 procedure TValorKWH.FormCreate(Sender: TObject);
